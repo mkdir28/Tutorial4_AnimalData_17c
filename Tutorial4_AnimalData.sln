@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial4_AnimalData", "Tutorial4_AnimalData\Tutorial4_AnimalData.csproj", "{F25CDAB1-8C3E-49D1-953B-072D996554AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F25CDAB1-8C3E-49D1-953B-072D996554AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F25CDAB1-8C3E-49D1-953B-072D996554AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F25CDAB1-8C3E-49D1-953B-072D996554AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F25CDAB1-8C3E-49D1-953B-072D996554AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

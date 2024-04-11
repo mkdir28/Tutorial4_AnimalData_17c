@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "9t99SvWcChrg5jrEVU4vMrs3jNx9Kwr9fK3AlP6xtsmRq6On8EGOOp7xjbtFWEOnt18WmzlxdSNahjBP7MtgMg==",
+  "success": true,
+  "projectFilePath": "/Users/marina/Tutorial4_AnimalData_17c/Tutorial4_AnimalData/Tutorial4_AnimalData.csproj",
+  "expectedPackageFiles": [
+    "/Users/marina/.nuget/packages/microsoft.aspnetcore.openapi/8.0.2/microsoft.aspnetcore.openapi.8.0.2.nupkg.sha512",
+    "/Users/marina/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/Users/marina/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
+    "/Users/marina/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
+    "/Users/marina/.nuget/packages/swashbuckle.aspnetcore.swagger/6.4.0/swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
+    "/Users/marina/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.4.0/swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
+    "/Users/marina/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.4.0/swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512"
+  ],
+  "logs": []
+}
