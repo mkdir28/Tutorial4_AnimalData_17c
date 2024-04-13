@@ -40,6 +40,24 @@ public class AnimalsController: ControllerBase
         animals.Add(animal);
         return (IActionResult)Results.StatusCode(StatusCodes.Status201Created);
     }
-    
-    [HttpPut("{id}")]
+
+    [HttpPut("{/api/animals/{id:int}")]
+    public IActionResult editAnimal(int id, Animal animal)
+    {
+        var animals = new MockDb().Animals;
+        var animalToEdit = animals.FirstOrDefault(s => s.id == id);
+        if (animalToEdit == null)
+        {
+            return (IActionResult)Results.NotFound($"Animal with id {id} was not found");
+        }
+        animals.Remove(animalToEdit);
+        animals.Add(animal);
+        return (IActionResult)Results.NoContent();
+    }
+
+    [HttpDelete("/api/animals/{id:int}")]
+    public IActionResult deleteAnimal()
+    {
+        
+    }
 }
