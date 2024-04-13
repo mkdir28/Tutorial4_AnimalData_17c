@@ -21,7 +21,7 @@ public static class AnimalEndpoints
 
             return Results.Created();
         });
-        //add an animal
+        // retrieve a specific animal by id
         app.MapGet("/api/animals/{id:int}", (int id) =>
             {
                 var animals = new MockDb().Animals;
@@ -30,5 +30,29 @@ public static class AnimalEndpoints
             })
             .WithName("GetAnimals")
             .WithOpenApi();
+        //add an animal
+        app.MapPost("/api/animals", (Animal animal) =>
+            {
+                Animals.Add(animal);
+                return Results.StatusCode(StatusCodes.Status201Created);
+            })
+            .WithName("AddStudent")
+            .WithOpenApi();
+        
+        
+        app.MapDelete("/api/animals/{id:int}", (int id) =>
+            {
+                var studentToDelete = _students.FirstOrDefault(s => s.IdStudent == id);
+                if (studentToDelete == null)
+                {
+                    return Results.NoContent();
+                }
+                _students.Remove(studentToDelete);
+                return Results.NoContent();
+            })
+            .WithName("DeleteStudent")
+            .WithOpenApi();
+
+        app.Run();
     }
 }
