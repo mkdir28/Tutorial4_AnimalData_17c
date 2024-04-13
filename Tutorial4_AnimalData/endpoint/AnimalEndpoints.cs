@@ -5,10 +5,12 @@ namespace Tutorial4_AnimalData.endpoint;
 
 public static class AnimalEndpoints
 {
-    public static void MapAnimalsEndpoint(this WebApplication app, MockDb mockDb)
+    public static void MapAnimalsEndpoint(this WebApplication app)
     {
+        var _mockDb = new MockDb().Animals;
+        var _mockDbVisits = new MockDb().Visits;
 
-        app.MapGet("/api/animals", () => Results.Ok(mockDb))
+        app.MapGet("/api/animals", () => Results.Ok(_mockDb))
             .WithName("GetAnimals")
             .WithOpenApi();
 // 200 - Ok
@@ -22,7 +24,7 @@ public static class AnimalEndpoints
         // });
         app.MapGet("/animals-minimal/{id:int}", (int id) =>
             {
-                var animal = mockDb.Animals.FirstOrDefault(s => s.id == id);
+                var animal = _mockDb.FirstOrDefault(s => s.id == id);
                 return animal == null ? Results.NotFound($"Animal with id {id} was not found") : Results.Ok(animal);
             })
             .WithName("GetAnimal")
@@ -38,7 +40,7 @@ public static class AnimalEndpoints
         //     .WithOpenApi();
         app.MapPost("/api/animals", (Animal animal) =>
             {
-                mockDb.Animals.Add(animal);
+                _mockDb.Add(animal);
                 return Results.StatusCode(StatusCodes.Status201Created);
             })
             .WithName("CreateAnimal")
@@ -57,13 +59,13 @@ public static class AnimalEndpoints
 //     .WithOpenApi();
         app.MapPut("/api/animals/{id:int}", (int id, Animal animal) =>
             {
-                var animalToEdit = mockDb.Animals.FirstOrDefault(s => s.id == id);
+                var animalToEdit = _mockDb.FirstOrDefault(s => s.id == id);
                 if (animalToEdit == null)
                 {
                     return Results.NotFound($"Student with id {id} was not found");
                 }
-                mockDb.Animals.Remove(animalToEdit);
-                mockDb.Animals.Add(animal);
+                _mockDb.Remove(animalToEdit);
+                _mockDb.Add(animal);
                 return Results.NoContent();
             })
             .WithName("UpdateAnimal")
@@ -71,12 +73,12 @@ public static class AnimalEndpoints
         
         app.MapDelete("/api/animals/{id:int}", (int id) =>
             {
-                var animalToDelete = mockDb.Animals.FirstOrDefault(s => s.id == id);
+                var animalToDelete = _mockDb.FirstOrDefault(s => s.id == id);
                 if (animalToDelete == null)
                 {
                     return Results.NoContent();
                 }
-                mockDb.Animals.Remove(animalToDelete);
+                _mockDb.Remove(animalToDelete);
                 return Results.NoContent();
             })
             .WithName("DeleteAnimal")
@@ -84,7 +86,7 @@ public static class AnimalEndpoints
         
         app.MapGet("{id:int}/visits", (int id)=>
         {
-            var visitToAnimal = mockDb.Visits.FirstOrDefault(a => a.id == id);
+            var visitToAnimal = _mockDbVisits.FirstOrDefault(a => a.id == id);
             return Results.Ok(visitToAnimal);
         })
         .WithName("GetVisits")
@@ -92,17 +94,12 @@ public static class AnimalEndpoints
         
         app.MapPost("{id:int}/visits", (Visit visit) =>
         {
-            mockDb.Visits.Add(visit);
+            _mockDbVisits.Add(visit);
             return Results.StatusCode(StatusCodes.Status201Created);
         })
         .WithName("GetVisit")
         .WithOpenApi();
         
         app.Run();
-    }
-
-    public static void MapAnimalsEndpoint(this WebApplication app)
-    {
-        throw new NotImplementedException();
     }
 }
