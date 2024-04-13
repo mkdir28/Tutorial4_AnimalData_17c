@@ -1,3 +1,4 @@
+using Tutorial4_AnimalData.database;
 using Tutorial4_AnimalData.models;
 
 namespace Tutorial4_AnimalData.endpoint;
@@ -20,5 +21,14 @@ public static class AnimalEndpoints
 
             return Results.Created();
         });
+        //add an animal
+        app.MapGet("/api/animals/{id:int}", (int id) =>
+            {
+                var animals = new MockDb().Animals;
+                animals.FirstOrDefault(s => s.id == id);
+                return animals == null ? Results.NotFound($"Animal with id {id} was not found") : Results.Ok(animals);
+            })
+            .WithName("GetAnimals")
+            .WithOpenApi();
     }
 }
