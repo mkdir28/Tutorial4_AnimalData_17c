@@ -6,6 +6,7 @@ public class MockDb
 {
     //add an animal
     public List<Animal> Animals { get; set; } = new List<Animal>();
+    public List<Visit> Visits { get; set; } = new List<Visit>();
 
     public MockDb()
     {
