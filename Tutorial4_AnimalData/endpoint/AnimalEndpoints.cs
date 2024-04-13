@@ -100,4 +100,9 @@ public static class AnimalEndpoints
         
         app.Run();
     }
+
+    public static void MapAnimalsEndpoint(this WebApplication app)
+    {
+        throw new NotImplementedException();
+    }
 }
