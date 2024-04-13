@@ -7,18 +7,18 @@ namespace Tutorial4_AnimalData.controllers;
 [Route("[controller]")]
 public class AnimalsController: ControllerBase
 {
-    // private readonly MockDb _mockDb;
-    //
-    //     public AnimalsController(MockDb _mockDb)
-    // {
-    //     this._mockDb = _mockDb;
-    // }
+    private readonly MockDb _mockDb;
+
+    public AnimalsController(MockDb mockDb)
+    {
+        _mockDb = mockDb;
+    }
     [HttpGet("/api/animals")]
     public IActionResult GetAnimals()
     {
         //retrieve a list of animals
         //var animals = StaticData.animals;
-        var animals = new MockDb().Animals;
+        var animals = _mockDb.Animals;
         return Ok(animals);
     }
 //FirstOrDefault - Returns the first element of a sequence, or a specified default value if the sequence contains no elements.
@@ -27,8 +27,7 @@ public class AnimalsController: ControllerBase
     [HttpGet("/api/animals/{id:int}")]
     public IActionResult GetAnomalsById(int id)
     {
-        var animals = new MockDb().Animals;
-        animals.FirstOrDefault(a => a.id == id);
+        var animals= _mockDb.Animals.FirstOrDefault(a => a.id == id);
         return (IActionResult)(animals == null ? Results.NotFound($"The Animal with {id} not found") : Results.Ok());
     }
     
@@ -36,35 +35,32 @@ public class AnimalsController: ControllerBase
     [HttpPost("/api/animals")]
     public IActionResult AddAnimal(Animal animal)
     {
-        var animals = new MockDb().Animals;
-        animals.Add(animal);
+        _mockDb.Animals.Add(animal);
         return (IActionResult)Results.StatusCode(StatusCodes.Status201Created);
     }
 
     [HttpPut("{/api/animals/{id:int}")]
     public IActionResult editAnimal(int id, Animal animal)
     {
-        var animals = new MockDb().Animals;
-        var animalToEdit = animals.FirstOrDefault(a => a.id == id);
+        var animalToEdit = _mockDb.Animals.FirstOrDefault(a => a.id == id);
         if (animalToEdit == null)
         {
             return (IActionResult)Results.NotFound($"Animal with id {id} was not found");
         }
-        animals.Remove(animalToEdit);
-        animals.Add(animal);
+        _mockDb.Animals.Remove(animalToEdit);
+        _mockDb.Animals.Add(animal);
         return (IActionResult)Results.NoContent();
     }
 
     [HttpDelete("/api/animals/{id:int}")]
     public IActionResult deleteAnimal(int id)
     {
-        var animals = new MockDb().Animals;
-        var animalToDelete = animals.FirstOrDefault(a => a.id == id);
+        var animalToDelete = _mockDb.Animals.FirstOrDefault(a => a.id == id);
         if (animalToDelete == null)
         {
             return (IActionResult)Results.NoContent();
         }
-        animals.Remove(animalToDelete);
+        _mockDb.Animals.Remove(animalToDelete);
         return (IActionResult)Results.NoContent();
     }
     
@@ -72,10 +68,15 @@ public class AnimalsController: ControllerBase
     [HttpGet("{id:int}/visits")]
     public IActionResult getVisits(int id)
     {
-        var visits = new MockDb().Visits;
-        var visitToAnimal = visits.FirstOrDefault(a => a.id == id);
+        var visitToAnimal = _mockDb.Visits.FirstOrDefault(a => a.id == id);
         return Ok(visitToAnimal);
     }
     
     //we would like to be able to add new visits
+    [HttpPost("{id:int}/visits")]
+    public IActionResult addVisit(Visit visit)
+    {
+        _mockDb.Visits.Add(visit);
+        return (IActionResult)Results.StatusCode(StatusCodes.Status201Created);
+    }
 }
