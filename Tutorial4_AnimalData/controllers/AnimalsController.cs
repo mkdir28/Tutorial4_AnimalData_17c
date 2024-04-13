@@ -28,7 +28,7 @@ public class AnimalsController: ControllerBase
     public IActionResult GetAnomalsById(int id)
     {
         var animals= _mockDb.Animals.FirstOrDefault(a => a.id == id);
-        return (IActionResult)(animals == null ? Results.NotFound($"The Animal with {id} not found") : Results.Ok());
+        return animals == null ? NotFound($"The Animal with {id} not found") : Ok();
     }
     
     //add an animal
@@ -36,7 +36,7 @@ public class AnimalsController: ControllerBase
     public IActionResult AddAnimal(Animal animal)
     {
         _mockDb.Animals.Add(animal);
-        return (IActionResult)Results.StatusCode(StatusCodes.Status201Created);
+        return StatusCode(StatusCodes.Status201Created);
     }
 
     [HttpPut("{/api/animals/{id:int}")]
@@ -49,7 +49,7 @@ public class AnimalsController: ControllerBase
         }
         _mockDb.Animals.Remove(animalToEdit);
         _mockDb.Animals.Add(animal);
-        return (IActionResult)Results.NoContent();
+        return NoContent();
     }
 
     [HttpDelete("/api/animals/{id:int}")]
@@ -61,7 +61,7 @@ public class AnimalsController: ControllerBase
             return (IActionResult)Results.NoContent();
         }
         _mockDb.Animals.Remove(animalToDelete);
-        return (IActionResult)Results.NoContent();
+        return NoContent();
     }
     
     //retrieve a list of visits associated with a given animal
@@ -77,6 +77,6 @@ public class AnimalsController: ControllerBase
     public IActionResult addVisit(Visit visit)
     {
         _mockDb.Visits.Add(visit);
-        return (IActionResult)Results.StatusCode(StatusCodes.Status201Created);
+        return StatusCode(StatusCodes.Status201Created);
     }
 }
