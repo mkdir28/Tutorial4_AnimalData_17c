@@ -13,13 +13,13 @@ public class AnimalsController: ControllerBase
     // {
     //     this._mockDb = _mockDb;
     // }
-    [HttpGet]
+    [HttpGet("/api/animals")]
     public IActionResult GetAnimals()
     {
         //retrieve a list of animals
         //var animals = StaticData.animals;
         var animals = new MockDb().Animals;
-        return Ok();
+        return Ok(animals);
     }
 //FirstOrDefault - Returns the first element of a sequence, or a specified default value if the sequence contains no elements.
 
