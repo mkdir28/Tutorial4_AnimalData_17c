@@ -67,4 +67,15 @@ public class AnimalsController: ControllerBase
         animals.Remove(animalToDelete);
         return (IActionResult)Results.NoContent();
     }
+    
+    //retrieve a list of visits associated with a given animal
+    [HttpGet("{id:int}/visits")]
+    public IActionResult getVisits(int id)
+    {
+        var visits = new MockDb().Visits;
+        var visitToAnimal = visits.FirstOrDefault(a => a.id == id);
+        return Ok(visitToAnimal);
+    }
+    
+    //we would like to be able to add new visits
 }
