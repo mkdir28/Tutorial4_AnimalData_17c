@@ -1,11 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using Tutorial4_AnimalData.database;
+using Tutorial4_AnimalData.models;
 
 namespace Tutorial4_AnimalData.controllers;
 [ApiController]
 [Route("[controller]")]
 public class AnimalsController: ControllerBase
 {
+    // private readonly MockDb _mockDb;
+    //
+    //     public AnimalsController(MockDb _mockDb)
+    // {
+    //     this._mockDb = _mockDb;
+    // }
     [HttpGet]
     public IActionResult GetAnimals()
     {
@@ -26,6 +33,13 @@ public class AnimalsController: ControllerBase
     }
     
     //add an animal
-    [HttpGet("/animal")]
-    public IActionResult Get
+    [HttpPost("/animal")]
+    public IActionResult AddAnimal(Animal animal)
+    {
+        var animals = new MockDb().Animals;
+        animals.Add(animal);
+        return (IActionResult)Results.StatusCode(StatusCodes.Status201Created);
+    }
+    
+    [HttpPut("{id}")]
 }
