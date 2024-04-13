@@ -6,6 +6,6 @@ public class Animal
     public string name { get; set; }
     public string category { get; set; }
     public string wheight { get; set; }
-    public int color { get; set; }
+    public int fur_color { get; set; }
 
 }
