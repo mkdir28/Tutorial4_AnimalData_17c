@@ -24,16 +24,16 @@ public class AnimalsController: ControllerBase
 //FirstOrDefault - Returns the first element of a sequence, or a specified default value if the sequence contains no elements.
 
     // retrieve a specific animal by id
-    [HttpGet("{id}")]
+    [HttpGet("/api/animals/{id:int}")]
     public IActionResult GetAnomalsById(int id)
     {
         var animals = new MockDb().Animals;
-        animals.FirstOrDefault(s => s.id == id);
+        animals.FirstOrDefault(a => a.id == id);
         return (IActionResult)(animals == null ? Results.NotFound($"The Animal with {id} not found") : Results.Ok());
     }
     
     //add an animal
-    [HttpPost("/animal")]
+    [HttpPost("/api/animals")]
     public IActionResult AddAnimal(Animal animal)
     {
         var animals = new MockDb().Animals;
@@ -45,7 +45,7 @@ public class AnimalsController: ControllerBase
     public IActionResult editAnimal(int id, Animal animal)
     {
         var animals = new MockDb().Animals;
-        var animalToEdit = animals.FirstOrDefault(s => s.id == id);
+        var animalToEdit = animals.FirstOrDefault(a => a.id == id);
         if (animalToEdit == null)
         {
             return (IActionResult)Results.NotFound($"Animal with id {id} was not found");
@@ -56,8 +56,15 @@ public class AnimalsController: ControllerBase
     }
 
     [HttpDelete("/api/animals/{id:int}")]
-    public IActionResult deleteAnimal()
+    public IActionResult deleteAnimal(int id)
     {
-        
+        var animals = new MockDb().Animals;
+        var animalToDelete = animals.FirstOrDefault(a => a.id == id);
+        if (animalToDelete == null)
+        {
+            return (IActionResult)Results.NoContent();
+        }
+        animals.Remove(animalToDelete);
+        return (IActionResult)Results.NoContent();
     }
 }
